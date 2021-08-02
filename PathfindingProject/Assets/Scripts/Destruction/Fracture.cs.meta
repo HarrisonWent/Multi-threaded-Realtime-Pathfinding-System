@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 4d8ae86d4c1c608498a92189c29e405c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - CellParent: {instanceID: 0}
+  - OriginalMesh: {instanceID: 0}
+  - ObjectsParentToCleanup: {instanceID: 0}
+  - DestroyedMeshVariant: {instanceID: 0}
+  - FX: {instanceID: 0}
+  - TrailFX: {fileID: 5223911217590079224, guid: e377edb2cff4f41478a55422b6dd173a,
+      type: 3}
+  - Sound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
