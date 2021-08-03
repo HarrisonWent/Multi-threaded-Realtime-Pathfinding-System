@@ -15,8 +15,7 @@ public class ExplosionGun : MonoBehaviour
     {
         pathAgent = GetComponent<PathAgent>();
         demoAgent = GetComponent<DemoAgent>();
-        explosionGun = GetComponent<ExplosionGun>();       
-        
+        explosionGun = GetComponent<ExplosionGun>();        
     }
 
     public void ReturnToPool(Projectile projectile)

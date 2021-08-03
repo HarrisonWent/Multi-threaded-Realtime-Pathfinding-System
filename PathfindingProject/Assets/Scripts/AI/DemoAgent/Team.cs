@@ -13,6 +13,10 @@ public class Team : MonoBehaviour
 
     public static List<Team> AllPlayers;
 
+    /// <summary>
+    /// Gets an enemy transform
+    /// </summary>
+    /// <returns>A random transform from a player on a team different from its own</returns>
     public Transform GetEnemy()
     {
         List<Team> enemies = new List<Team>();

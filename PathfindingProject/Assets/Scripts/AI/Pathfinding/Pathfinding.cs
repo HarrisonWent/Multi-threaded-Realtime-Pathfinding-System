@@ -4,12 +4,14 @@ using UnityEngine;
 using System.Threading;
 using System;
 
+//An action to take along a given path
 public class PathAction
 {
     public bool NeedsDestroy;
     public Vector3 Position;
 }
 
+//An instruction for a specific path to be created
 public class PathInstruction
 {
     public Action<List<PathAction>> FinishAction;
@@ -19,10 +21,11 @@ public class PathInstruction
     public bool agentCanFly;
 }
 
+//A node used in the search for a path
 public class PathFindingNode
 {
     public Node node;
-    public float G, H,F;
+    public float G, H,F;//Costs
     public PathFindingNode CameFrom;
 }
 
@@ -36,6 +39,7 @@ public class Pathfinding : MonoBehaviour
         Reading
     }
 
+    //Determines is the octree is availble for reading for pathfinding
     public static TreeState treeState = TreeState.Init;
 
     List<Thread> PathFindingThreads = new List<Thread>();
@@ -58,7 +62,7 @@ public class Pathfinding : MonoBehaviour
             return;
         }
 
-        //Hand out any pending results of the pathfinind threads
+        //Hand out any pending results of the pathfinding threads
         while(QueuedPathResults.Count>0)
         {
             Action action = QueuedPathResults.Dequeue();
@@ -98,7 +102,7 @@ public class Pathfinding : MonoBehaviour
         //var stopwatch = new System.Diagnostics.Stopwatch();
         //stopwatch.Start();
 
-        //Debug.LogWarning("Started path finding for instruction: From: " + pathInstruction.From + ", To: " + pathInstruction.To);
+        //Debug.Log("Started path finding for instruction: From: " + pathInstruction.From + ", To: " + pathInstruction.To);
 
         Node RootNode = pathInstruction.RootNode;
 

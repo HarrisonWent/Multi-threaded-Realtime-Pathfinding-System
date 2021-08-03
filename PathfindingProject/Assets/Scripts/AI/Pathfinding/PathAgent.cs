@@ -24,6 +24,10 @@ public class PathAgent : MonoBehaviour
         setup = true;
     }
 
+    /// <summary>
+    /// Queues the pathfinding to get a path to the given destination
+    /// </summary>
+    /// <param name="Destination"></param>
     public void SetDestination(Vector3 Destination)
     {
         if (!setup) { Setup(); }
@@ -33,6 +37,10 @@ public class PathAgent : MonoBehaviour
         Queue(false);
     }
 
+    /// <summary>
+    /// Tells the pathfinding manager this agent wants a path
+    /// </summary>
+    /// <param name="nextupdate">If true it will be done after the next Octree update</param>
     private void Queue(bool nextupdate)
     {
         if (!Waiting)
@@ -42,6 +50,10 @@ public class PathAgent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets a transform for as a destination, useful for targets which are moving so that the destination will be more accurate when it is processed
+    /// </summary>
+    /// <param name="Destination"></param>
     public void SetDestinationTransform(Transform Destination)
     {
         if (!setup) { Setup(); }
@@ -50,6 +62,9 @@ public class PathAgent : MonoBehaviour
         Queue(false);
     }
 
+    /// <summary>
+    /// Stops the agents movement and clears its path
+    /// </summary>
     public void StopAgent()
     {
         Route.Clear();
@@ -57,6 +72,10 @@ public class PathAgent : MonoBehaviour
         isStopped = true;
     }
 
+    /// <summary>
+    /// Gets the desired velocity if the agent has a path
+    /// </summary>
+    /// <returns>World velocity towards next position on path</returns>
     public Vector3 GetDesiredVelocity()
     {
         if (Route == null || Route.Count == 0) { return Vector3.zero; }

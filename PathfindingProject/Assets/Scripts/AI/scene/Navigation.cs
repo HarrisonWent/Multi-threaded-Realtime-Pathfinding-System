@@ -10,10 +10,18 @@ using UnityEditor;
 /// </summary>
 public class CachedCollider
 {
-    private Collider Cache_collider;
+    private Collider _Cache_collider;
+    public Collider Cache_collider
+    {
+        get { return _Cache_collider; }
+        set
+        {
+            _Cache_collider = value;
+        }
+    }
+
     public Bounds Cache_bounds;
-    public void SetCollider(Collider collider) { Cache_collider = collider; }
-    public Collider GetCollider() { return Cache_collider; }
+
     public void SetBounds(Vector3 Size, Vector3 Position)
     {
         if (Cache_bounds == null) { Cache_bounds = new Bounds(); }
@@ -314,7 +322,7 @@ public class Navigation : MonoBehaviour
             if (!CacheContains(SceneSurfaceObjects[i].SurfaceCollider))
             {
                 CachedCollider cachedCollider = new CachedCollider();
-                cachedCollider.SetCollider(SceneSurfaceObjects[i].SurfaceCollider);
+                cachedCollider.Cache_collider = SceneSurfaceObjects[i].SurfaceCollider;
 
                 //We dont want to do updates for objects here at the level start since the nav has just been baked anyway
                 if (!FirstTime)
@@ -336,7 +344,7 @@ public class Navigation : MonoBehaviour
     {
         for (int i = 0; i < CachedColliders.Count; i++)
         {
-            if (CachedColliders.ElementAt(i).GetCollider() == collider)
+            if (CachedColliders.ElementAt(i).Cache_collider == collider)
             {
                 return true;
             }
@@ -380,9 +388,8 @@ public class Navigation : MonoBehaviour
 
             //take cached collider from the queue
             CachedCollider cachedCollider = CachedColliders.Dequeue();
-
            
-            collider = cachedCollider.GetCollider();
+            collider = cachedCollider.Cache_collider;
 
             //if collider is null
             if (collider == null)
@@ -428,6 +435,12 @@ public class Navigation : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// Checks if bounds are the same when rounded to agent size
+    /// </summary>
+    /// <param name="A"></param>
+    /// <param name="B"></param>
+    /// <returns>True if the bounds rounded to the current agent size are the same</returns>
     private bool CompareBounds(Bounds A, Bounds B)
     {
         if (FastRoundToAgentSize(A.center) == FastRoundToAgentSize(B.center) && 
@@ -438,6 +451,12 @@ public class Navigation : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Converts a world position to the nearest node
+    /// </summary>
+    /// <param name="WorldPosition"></param>
+    /// <param name="root"></param>
+    /// <returns></returns>
     public static Node WorldPositionToNode(Vector3 WorldPosition,Node root)
     {
         if(root == null) { Debug.LogError("Root is null"); }
@@ -472,7 +491,7 @@ public class Navigation : MonoBehaviour
     /// <param name="cachedCollider"></param>
     public void UpdatePair(CachedCollider cachedCollider)
     {
-        Collider collider = cachedCollider.GetCollider();
+        Collider collider = cachedCollider.Cache_collider;
 
         if(collider == null)
         {

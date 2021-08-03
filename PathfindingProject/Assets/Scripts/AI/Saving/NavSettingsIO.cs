@@ -5,6 +5,9 @@ using System.IO;
 
 public class NavSettingsIO : MonoBehaviour
 {
+    /// <summary>
+    /// Saves the custom surfaces to text files within resources
+    /// </summary>
     public static void SaveSurfaceSettings()
     {
         CheckDirectory();
@@ -36,6 +39,9 @@ public class NavSettingsIO : MonoBehaviour
         f.Close();
     }
 
+    /// <summary>
+    /// Loads custom surfaces from the text files within resources (if present)
+    /// </summary>
     public static void LoadSurfaces()
     {
         CheckDirectory();
@@ -56,7 +62,6 @@ public class NavSettingsIO : MonoBehaviour
             {
                 CustomNavigationSurface customNavigationSurface = new CustomNavigationSurface();
                 customNavigationSurface.SurfaceName = sr.ReadLine();
-                //Debug.Log("Loaded: " + customNavigationSurface.SurfaceName);
                 customNavigationSurface.HiddenID = byte.Parse(sr.ReadLine());
                 customNavigationSurface.Breakable = bool.Parse(sr.ReadLine());
                 customNavigationSurface.BreakCost = int.Parse(sr.ReadLine());
@@ -77,6 +82,9 @@ public class NavSettingsIO : MonoBehaviour
         Debug.Log("Loaded your project surfaces");
     }
 
+    /// <summary>
+    /// Checks if the directory for custom surfaces exists
+    /// </summary>
     private static void CheckDirectory()
     {
         if (!Directory.Exists(Application.dataPath + "/Resources/"))

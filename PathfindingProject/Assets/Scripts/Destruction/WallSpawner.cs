@@ -15,6 +15,7 @@ public class WallSpawner : MonoBehaviour
         transform.rotation = wall.transform.rotation;
     }
 
+    // Respawns the wall object if it is destroyed
     void Update()
     {
         if(wall == null)
